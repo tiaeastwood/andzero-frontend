@@ -1,1 +1,8 @@
+.ANDRed {
+    background-color: #D82036;
+    border: #D82036;
+}
 
+#welcomePageBtn:hover {
+    background-color: #D82036;
+}
