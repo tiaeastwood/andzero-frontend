@@ -1,30 +1,34 @@
 import { useState, useEffect } from "react";
 
 function FormPage() {
-	const [coffeeCups, setCoffeeCups] = useState(0);
-	const [pledge, setPledge] = useState(false);
-	const [pledgeDate, setPledgeDate] = useState(new Date());
-	const [email, setEmail] = useState("");
-	const [clubId, setClubId] = useState("");
+	const [coffeeCups, setCoffeeCups] = useState();
+	const [pledge, setPledge] = useState();
+	const [pledgeDate, setPledgeDate] = useState();
+	const [email, setEmail] = useState();
+    const [clubId, setClubId] = useState();
+    
+    const canSubmit = coffeeCups && pledge && pledgeDate && email && clubId;
 
 	const submitForm = (e) => {
 		e.preventDefault();
 
-		const url = "http://localhost:1234/pledge";
-		const requestOptions = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				email: email,
-				club: clubId,
-				date: pledgeDate,
-				cupsPledged: coffeeCups,
-			}),
-		};
+		if (canSubmit) {
+			const url = "http://localhost:1234/pledge";
+			const requestOptions = {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					email: email,
+					club: clubId,
+					date: pledgeDate,
+					cupsPledged: coffeeCups,
+				}),
+			};
 
-		fetch(url, requestOptions)
-			.then((response) => console.log(response))
-			.catch((error) => console.log("Form submit error", error));
+			fetch(url, requestOptions)
+				.then((response) => console.log(response))
+				.catch((error) => console.log("Form submit error", error));
+		}
 	};
 
 	useEffect(() => {
@@ -45,7 +49,7 @@ function FormPage() {
 	return (
 		<div id="form-container">
 			<form className="p-12">
-				<label for="number">
+				<label htmlFor="number">
 					On average, enter the number of coffees you have per day:
 				</label>
 				<input
@@ -55,7 +59,7 @@ function FormPage() {
 					className="input input-bordered input-secondary w-full mb-6"
 					onChange={(e) => setCoffeeCups(e.target.value)}
 				/>
-				<label for="radio">
+				<label htmlFor="radio">
 					Do you pledge to switch to a reusable coffee cup?
 				</label>
 				<div className="mb-5">
@@ -82,7 +86,7 @@ function FormPage() {
 					</label>
 				</div>
 
-				<label for="number">From what date do you pledge to do this?</label>
+				<label htmlFor="number">From what date do you pledge to do this?</label>
 				<input
 					name="number"
 					type="date"
@@ -91,12 +95,12 @@ function FormPage() {
 					onChange={(e) => setPledgeDate(e.target.value)}
 				/>
 
-				<label for="club">Club</label>
+				<label htmlFor="club">Club</label>
 				<select
 					className="select select-secondary w-full mb-6"
 					onChange={(e) => setClubId(e.target.value)}
 				>
-					<option disabled selected>
+					<option disabled defaultValue>
 						Pick your club
 					</option>
 					<option value="1">Wangari</option>
@@ -107,7 +111,7 @@ function FormPage() {
 					<option value="6">Adams</option>
 				</select>
 
-				<label for="email">Email address</label>
+				<label htmlFor="email">Email address</label>
 				<input
 					name="emil"
 					type="text"
@@ -120,6 +124,7 @@ function FormPage() {
 					type="submit"
 					onClick={submitForm}
 					className="btn btn-primary ANDRed"
+					disabled={!canSubmit}
 				>
 					Submit
 				</button>
