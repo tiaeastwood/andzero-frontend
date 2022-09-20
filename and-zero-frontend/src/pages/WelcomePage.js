@@ -1,4 +1,4 @@
-
+import {Link} from "react-router-dom";
 
 function WelcomePage() {
     return (
@@ -10,7 +10,8 @@ function WelcomePage() {
                             <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
                             <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                             <div className="flex flex-col">
-                                <button id="welcomePageBtn" className="btn btn-primary ANDRed">Get Started</button>
+                            <Link to="/About"> <button id="welcomePageBtn" className="btn btn-primary ANDRed">Get Started</button> </Link>
+                                
                              </div>
                     </div>
                 </div>
