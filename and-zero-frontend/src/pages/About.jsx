@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 function About() {
   return (
     <>
@@ -32,9 +33,9 @@ function About() {
               </p>{" "}
             </div>
             <div className="flex flex-col">
-              <Link to="/About">
+              <Link to="/FormPage">
                 {" "}
-                <button id="welcomePageBtn" className="btn btn-primary ANDRed">
+                <button id="continueBtn" className="btn btn-primary ANDRed">
                   Continue
                 </button>{" "}
               </Link>
@@ -43,7 +44,7 @@ function About() {
               Alternatively if you have already contributed you can log into
               your area below.
             </p>
-            <button id="welcomePageBtn" className="btn btn-primary ANDRed ">
+            <button id="skipBtn" className="btn btn-primary ANDRed ">
               Log In{" "}
             </button>
           </div>

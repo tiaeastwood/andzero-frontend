@@ -1,0 +1,131 @@
+import { useState, useEffect } from "react";
+
+function FormPage() {
+	const [coffeeCups, setCoffeeCups] = useState(0);
+	const [pledge, setPledge] = useState(false);
+	const [pledgeDate, setPledgeDate] = useState(new Date());
+	const [email, setEmail] = useState("");
+	const [clubId, setClubId] = useState("");
+
+	const submitForm = (e) => {
+		e.preventDefault();
+
+		const url = "http://localhost:1234/pledge";
+		const requestOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				email: email,
+				club: clubId,
+				date: pledgeDate,
+				cupsPledged: coffeeCups,
+			}),
+		};
+
+		fetch(url, requestOptions)
+			.then((response) => console.log(response))
+			.catch((error) => console.log("Form submit error", error));
+	};
+
+	useEffect(() => {
+		console.log(
+			"coffeeCups",
+			coffeeCups,
+			"pledge",
+			pledge,
+			"email",
+			email,
+			"clubId",
+			clubId,
+			"pledgeDate",
+			pledgeDate,
+		);
+	}, [coffeeCups, pledge, email, clubId, pledgeDate]);
+
+	return (
+		<div id="form-container">
+			<form className="p-12">
+				<label for="number">
+					On average, enter the number of coffees you have per day:
+				</label>
+				<input
+					name="number"
+					type="text"
+					placeholder="5"
+					className="input input-bordered input-secondary w-full mb-6"
+					onChange={(e) => setCoffeeCups(e.target.value)}
+				/>
+				<label for="radio">
+					Do you pledge to switch to a reusable coffee cup?
+				</label>
+				<div className="mb-5">
+					<label className="label cursor-pointer">
+						<span className="label-text">Yes</span>
+						<input
+							value={true}
+							type="radio"
+							name="radio"
+							className="radio checked:bg-red-500"
+							onChange={(e) => setPledge(e.target.value)}
+						/>
+					</label>
+
+					<label className="label cursor-pointer">
+						<span className="label-text">No</span>
+						<input
+							value={false}
+							type="radio"
+							name="radio"
+							className="radio checked:bg-blue-500"
+							onChange={(e) => setPledge(e.target.value)}
+						/>
+					</label>
+				</div>
+
+				<label for="number">From what date do you pledge to do this?</label>
+				<input
+					name="number"
+					type="date"
+					placeholder="5"
+					className="input input-bordered input-secondary w-full mb-6"
+					onChange={(e) => setPledgeDate(e.target.value)}
+				/>
+
+				<label for="club">Club</label>
+				<select
+					className="select select-secondary w-full mb-6"
+					onChange={(e) => setClubId(e.target.value)}
+				>
+					<option disabled selected>
+						Pick your club
+					</option>
+					<option value="1">Wangari</option>
+					<option value="2">Woods</option>
+					<option value="3">Dekker</option>
+					<option value="4">Jemison</option>
+					<option value="5">Somerville</option>
+					<option value="6">Adams</option>
+				</select>
+
+				<label for="email">Email address</label>
+				<input
+					name="emil"
+					type="text"
+					placeholder="joe@joebloggs.com"
+					className="input input-bordered input-secondary w-full mb-6"
+					onChange={(e) => setEmail(e.target.value)}
+				/>
+
+				<button
+					type="submit"
+					onClick={submitForm}
+					className="btn btn-primary ANDRed"
+				>
+					Submit
+				</button>
+			</form>
+		</div>
+	);
+}
+
+export default FormPage;
