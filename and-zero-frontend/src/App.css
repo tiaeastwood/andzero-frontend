@@ -3,6 +3,16 @@
     border: #D82036;
 }
 
+h1 {
+    color: #fff;
+}
+
 #welcomePageBtn:hover {
     background-color: #D82036;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
