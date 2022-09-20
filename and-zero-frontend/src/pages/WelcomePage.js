@@ -11,7 +11,7 @@ function WelcomePage() {
                 <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                 <div className="flex flex-col">
 
-                <button className="btn btn-primary ANDRed">Get Started</button>
+                <button id="welcomePageBtn" className="btn btn-primary ANDRed">Get Started</button>
                 
                 </div>
                 
