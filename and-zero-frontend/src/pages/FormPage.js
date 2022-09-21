@@ -7,7 +7,7 @@ function FormPage() {
 	const [pledgeDate, setPledgeDate] = useState();
 	const [email, setEmail] = useState();
 	const [clubId, setClubId] = useState();
-	const [formResponse, setFormResponse] = useState();
+	const [clubsList, setClubsList] = useState([]);
 
 	const navigation = useNavigate();
 
@@ -36,20 +36,28 @@ function FormPage() {
 			.catch((error) => console.log("Form submit error", error));
 	};
 
+	const fetchClubs = async () => {
+		const clubUrl = "http://localhost:3001/clubs";
+
+		const response = await fetch(clubUrl);
+
+		if (!response.ok) {
+			throw new Error("Data could not be fetched");
+		}
+
+		return await response.json();
+	};
+
 	useEffect(() => {
-		console.log(
-			"coffeeCups",
-			coffeeCups,
-			"pledge",
-			pledge,
-			"email",
-			email,
-			"clubId",
-			clubId,
-			"pledgeDate",
-			pledgeDate,
-		);
-	}, [coffeeCups, pledge, email, clubId, pledgeDate]);
+		fetchClubs()
+			.then((clubsList) => {
+                setClubsList(clubsList);
+                console.log(clubsList);
+			})
+			.catch((error) => console.log(error.message));
+    }, []);
+    
+    
 
 	return (
 		<div id="form-container">
@@ -108,12 +116,9 @@ function FormPage() {
 					<option disabled defaultValue>
 						Pick your club
 					</option>
-					<option value="1">Wangari</option>
-					<option value="2">Woods</option>
-					<option value="3">Dekker</option>
-					<option value="4">Jemison</option>
-					<option value="5">Somerville</option>
-					<option value="6">Adams</option>
+					{clubsList && clubsList.map((club, index) => {
+						return <option key={index} value={club.id}>{club.club}</option>;
+					})}
 				</select>
 
 				<label htmlFor="email">Email address</label>
@@ -133,7 +138,7 @@ function FormPage() {
 				>
 					Submit
 				</button>
-            </form>
+			</form>
 		</div>
 	);
 }
