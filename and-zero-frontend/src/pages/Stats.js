@@ -24,8 +24,6 @@ ChartJS.register(
 	ArcElement,
 );
 
-// ChartJS.defaults.global.defaultFontColor = "#fff";
-
 function Stats() {
 	const [chartData, setChartData] = useState({
 		datasets: [],
@@ -34,14 +32,75 @@ function Stats() {
 	const [chartOptions, setChartOptions] = useState({});
 	const [cupsData, setCupsData] = useState({});
 	const [clubsList, setClubsList] = useState([]);
+	const [clubData, setClubData] = useState([]);
+
+	const fetchClubs = async () => {
+		const clubUrl = "http://localhost:3001/clubs";
+		const response = await fetch(clubUrl);
+		if (!response.ok) {
+			throw new Error("Data could not be fetched");
+		}
+		const data = await response.json();
+		setClubsList(data);
+		return data;
+	};
+
+	const getDataFromClubs = () => {
+		const arr = [];
+		try {
+			for (const club of clubsList) {
+				fetch(`http://localhost:3001/cups/${club.id}`)
+					.then((response) => response.json())
+					.then((data) => {
+						const newItem = {
+							clubId: club.id,
+							clubName: club.club,
+							data: data.totalCupsSaved,
+						};
+						arr.push(newItem);
+					});
+			}
+			setClubData(arr);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const getCupsData = () => {
+		fetch("http://localhost:3001/cups")
+			.then((response) => response.json())
+			.then((data) => {
+				setCupsData(data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	const calculateUsage = (cupsData.totalCupsSaved * 0.58 * 365) / 9.5;
+	const formattedNumber = Math.floor(calculateUsage);
 
 	useEffect(() => {
+		fetchClubs();
+		getCupsData();
+	}, []);
+
+	useEffect(() => {
+		if (clubsList) {
+			getDataFromClubs();
+		}
+	}, [clubsList]);
+
+	useEffect(() => {
+		console.log("clubData", clubData);
+		console.log("clubData", clubData.length);
+
 		setChartData({
-			labels: ["Woods", "Wangari ", "Adams", "Dekker", "Somerville", "Jemison"],
+			labels: clubData.map((club) => club.clubName),
 			datasets: [
 				{
 					label: "Who is the judge?",
-					data: [12, 55, 14, 14, 56, 80],
+					data: clubData.map((club) => club.data),
 					borderColor: [
 						"rgba(255, 99, 132, 1)",
 						"rgba(54, 162, 235, 1)",
@@ -63,6 +122,7 @@ function Stats() {
 				},
 			],
 		});
+
 		setChartOptions({
 			responsive: true,
 			plugins: {
@@ -81,58 +141,11 @@ function Stats() {
 				},
 			},
 		});
-	}, []);
+	}, [clubData, clubsList]);
 
-	const fetchClubs = async () => {
-		const clubUrl = "http://localhost:3001/clubs";
-		const response = await fetch(clubUrl);
-		if (!response.ok) {
-			throw new Error("Data could not be fetched");
-		}
-		const data = await response.json();
-		console.log("data", data);
-		setClubsList(data);
-		return data;
-	};
-
-	const getDataFromClubs = () => {
-		for (const club of clubsList) {
-			fetch(`http://localhost:3001/cups/${club.id}`)
-				.then((response) => response.json())
-				.then((data) => {
-					console.log("clubsList", data);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		}
-	};
-
-	const getCupsData = () => {
-		fetch("http://localhost:3001/cups")
-			.then((response) => response.json())
-			.then((data) => {
-				console.log("cupsdata", data);
-				setCupsData(data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	};
-
-	const calculateUsage = (cupsData.totalCupsSaved * 0.58 * 365) / 9.5;
-	const formattedNumber = Math.floor(calculateUsage);
-
-	useEffect(() => {
-		fetchClubs();
-		getCupsData();
-	}, []);
-
-	useEffect(() => {
-		if (clubsList) {
-			getDataFromClubs();
-		}
-	}, [clubsList]);
+	if (!clubData) {
+		return "Loading...";
+	}
 
 	return (
 		<div className="hero min-h-screen">
@@ -159,12 +172,10 @@ function Stats() {
 							Your Club Has Saved Enough Energy To Run the Dishwasher:
 						</h1>
 						<div className="flex justify-evenly items-center">
-							<h2 id="dishwasherX">x {formattedNumber}</h2>
+							<h2 id="dishwasherX">{formattedNumber} times!</h2>
 							<img id="dishwasherImg" src={Dishwasher} alt="" />
 						</div>
 					</div>
-
-					<div className=""></div>
 				</div>
 				<div id="pie-chart">
 					<Pie options={chartOptions} data={chartData} />
