@@ -1,34 +1,39 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 
 function FormPage() {
 	const [coffeeCups, setCoffeeCups] = useState();
 	const [pledge, setPledge] = useState();
 	const [pledgeDate, setPledgeDate] = useState();
 	const [email, setEmail] = useState();
-    const [clubId, setClubId] = useState();
-    
-    const canSubmit = coffeeCups && pledge && pledgeDate && email && clubId;
+	const [clubId, setClubId] = useState();
+	const [formResponse, setFormResponse] = useState();
+
+	const navigation = useNavigate();
+
+	const canSubmit = coffeeCups && pledge && pledgeDate && email && clubId;
 
 	const submitForm = (e) => {
 		e.preventDefault();
 
-		if (canSubmit) {
-			const url = "http://localhost:1234/pledge";
-			const requestOptions = {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					email: email,
-					club: clubId,
-					date: pledgeDate,
-					cupsPledged: coffeeCups,
-				}),
-			};
-
-			fetch(url, requestOptions)
-				.then((response) => console.log(response))
-				.catch((error) => console.log("Form submit error", error));
-		}
+		const url = "http://localhost:3001/pledge";
+		const requestOptions = {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"access-control-allow-origin": "*",
+			},
+			body: JSON.stringify({
+				email: email,
+				club: clubId,
+				date: pledgeDate,
+				cupsPledged: coffeeCups,
+			}),
+		};
+		fetch(url, requestOptions)
+			.then((response) => response.json())
+			.then(navigation("/Stats"))
+			.catch((error) => console.log("Form submit error", error));
 	};
 
 	useEffect(() => {
@@ -128,7 +133,7 @@ function FormPage() {
 				>
 					Submit
 				</button>
-			</form>
+            </form>
 		</div>
 	);
 }
