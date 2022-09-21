@@ -100,3 +100,6 @@ form {
     
 }
 
+button:focus{
+    background-color: black;
+}
