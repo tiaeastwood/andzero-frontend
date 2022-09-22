@@ -8,6 +8,7 @@ function FormPage() {
   const [email, setEmail] = useState();
   const [clubId, setClubId] = useState();
   const [clubsList, setClubsList] = useState([]);
+  const [showMsg, setShowMsg] = useState(false);
 
   const navigation = useNavigate();
 
@@ -16,7 +17,8 @@ function FormPage() {
   const submitForm = (e) => {
     e.preventDefault();
 
-    const url = "http://localhost:3001/pledge";
+    //e removed fromm url to intentionally create error (http://localhost:3001/pledge)
+    const url = "http://localhost:3001/pledg";
     const requestOptions = {
       method: "POST",
       headers: {
@@ -32,8 +34,16 @@ function FormPage() {
     };
     fetch(url, requestOptions)
       .then((response) => response.json())
-      .then(navigation("/Stats"))
-      .catch((error) => console.log("Form submit error", error));
+      .then((res) => {
+        if (res.ok) navigation("/Stats");
+      })
+      .catch((error) => {
+        setShowMsg(true);
+        console.log("Form submit error", error);
+        setTimeout(() => {
+          setShowMsg(false);
+        }, 3000);
+      });
   };
 
   const fetchClubs = async () => {
@@ -128,16 +138,26 @@ function FormPage() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
+        {/* Removed disabled={!canSubmit} for testing purposes */}
         <button
           type="submit"
           onClick={submitForm}
           id="submitBtn"
           className="btn btn-primary ANDRed w-full"
-          disabled={!canSubmit}
         >
           Submit
         </button>
       </form>
+
+      {showMsg && (
+        <div className="toast">
+          <div className="alert alert-info">
+            <div>
+              <span>Error: Please try again.</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
