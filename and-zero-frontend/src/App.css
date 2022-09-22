@@ -10,6 +10,17 @@ body {
     color: white;
 }
 
+#pledgeContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+input {
+    color: black;
+}
+
 .btnContainer {
     width: 100vw;
 }
@@ -18,6 +29,15 @@ body {
     margin-left: 0.3rem;
     width: 49%;
     font-size: 1.3rem;
+
+}
+
+button:hover {
+    background-color: black;
+}
+
+button:focus {
+    background-color: black;
 }
 
 label {
@@ -102,4 +122,19 @@ form {
 
 button:focus{
     background-color: black;
+}
+
+
+#submitBtn {
+    width: 100%;
+}
+
+#submitBtn:hover {
+    background-color: black;
+}
+
+button:disabled {
+    background-color: rgba(81, 81, 81, 0.5) !important;
+    width: 100%;
+    color: white !important;
 }
