@@ -138,3 +138,16 @@ button:disabled {
     width: 100%;
     color: white !important;
 }
+
+select {
+    color: black;
+}
+
+.alert-message {
+    padding: 10px;
+    background-color: rgb(255, 176, 176);
+    color: rgb(205, 0, 0);
+    border-radius: 10px;
+    margin-top: 30px;
+    text-align: center;
+}
