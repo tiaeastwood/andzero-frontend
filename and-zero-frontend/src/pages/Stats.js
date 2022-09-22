@@ -102,6 +102,7 @@ function Stats() {
         ],
       });
 
+<<<<<<< HEAD
       setChartOptions({
         responsive: true,
         plugins: {
@@ -124,6 +125,33 @@ function Stats() {
       console.log(error);
     }
   };
+=======
+			setChartOptions({
+				responsive: true,
+				plugins: {
+					legend: {
+						labels: {
+							color: "white",
+							font: {
+								size: 18,
+							},
+						},
+					},
+					title: {
+						display: true,
+						color: "white",
+						text: "Cups saved between clubs",
+						font: {
+							size: 20,
+						},
+					},
+				},
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+>>>>>>> main
 
   const getCupsData = () => {
     fetch("http://localhost:3001/cups")
