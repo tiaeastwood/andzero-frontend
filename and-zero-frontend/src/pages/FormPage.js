@@ -17,8 +17,7 @@ function FormPage() {
   const submitForm = (e) => {
     e.preventDefault();
 
-    //e removed fromm url to intentionally create error (http://localhost:3001/pledge)
-    const url = "http://localhost:3001/pledg";
+    const url = "http://localhost:3001/pledge";
     const requestOptions = {
       method: "POST",
       headers: {
@@ -139,12 +138,12 @@ function FormPage() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        {/* Removed disabled={!canSubmit} for testing purposes */}
         <button
           type="submit"
           onClick={submitForm}
           id="submitBtn"
           className="btn btn-primary ANDRed w-full"
+          disabled={!canSubmit}
         >
           Submit
         </button>
