@@ -1,4 +1,4 @@
-import { Bar, Pie } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -107,16 +107,19 @@ function Stats() {
 				plugins: {
 					legend: {
 						labels: {
-							fontColor: "#fff",
+							color: "white",
 							font: {
-								size: 20,
+								size: 18,
 							},
 						},
-						position: "top",
 					},
 					title: {
 						display: true,
+						color: "white",
 						text: "Cups saved between clubs",
+						font: {
+							size: 20,
+						},
 					},
 				},
 			});
