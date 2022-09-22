@@ -160,26 +160,25 @@ function Stats() {
 				<div className="max-w-md">
 					<h1 className="mb-5 text-2xl font-bold">
 						{" "}
-						Welcome Here's How You're Doing:
+						Welcome! Here's how you're doing:
 					</h1>
 					<div className="flex text-center justify-evenly">
 						<div className="statBackground">
-							<p className="mb-5"> Total ANDis Pledged</p>
+							<p>Total ANDis Pledged</p>
 							<p className="mb-5 statNumber"> {cupsData.totalUsers}</p>
 						</div>
 						<div>
-							<p className="mb-5"> Total Cups Saved</p>
-							<p className="mb- statNumber"> {cupsData.totalCupsSaved}</p>
+							<p> Total Cups Saved</p>
+							<p className="mb-5 statNumber"> {cupsData.totalCupsSaved}</p>
 						</div>
 					</div>
 
-					<div>
-						<h1 className="mb-4">
-							Your Club Has Saved Enough Energy To Run the Dishwasher:
-						</h1>
+					<div id="featured-stat" className="mb-5 p-5">
+						<h1 className="mb-5 text-2xl">You've saved enough energy to:</h1>
 						<div className="flex justify-evenly items-center">
-							<h2 id="dishwasherX">{formattedNumber} times!</h2>
-							<img id="dishwasherImg" src={Dishwasher} alt="" />
+							<p className="text-xl">run the dishwasher</p>
+							<img id="dishwasherImg" src={Dishwasher} alt="dishwasher" />
+							<h2 className="text-xl">{formattedNumber} times!</h2>
 						</div>
 					</div>
 				</div>

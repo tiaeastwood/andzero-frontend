@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 body {
     background-color: black;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2813&q=80");;
@@ -8,6 +10,7 @@ body {
     height: 100%;
     min-height: 100vh;
     color: white;
+    font-family: 'Poppins', sans-serif;
 }
 
 #pledgeContainer {
@@ -105,8 +108,8 @@ form {
 
 
 #dishwasherImg {
-    filter: invert(42%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(10000%) contrast(119%);
-    width: 25%;
+    filter: invert(42%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(119%);
+    width: 15%;
 }
 
 
@@ -137,4 +140,14 @@ button:disabled {
     background-color: rgba(81, 81, 81, 0.5) !important;
     width: 100%;
     color: white !important;
+}
+
+#featured-stat {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: black;
+    border-radius: 20px;
+}
+
+#featured-stat h1 {
+    color: black
 }
