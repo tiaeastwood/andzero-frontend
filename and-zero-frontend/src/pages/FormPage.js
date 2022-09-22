@@ -52,7 +52,6 @@ function FormPage() {
 		fetchClubs()
 			.then((clubsList) => {
 				setClubsList(clubsList);
-				console.log(clubsList);
 			})
 			.catch((error) => console.log(error.message));
 	}, []);
