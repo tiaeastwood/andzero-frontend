@@ -51,13 +51,10 @@ function FormPage() {
 	useEffect(() => {
 		fetchClubs()
 			.then((clubsList) => {
-                setClubsList(clubsList);
-                console.log(clubsList);
+				setClubsList(clubsList);
 			})
 			.catch((error) => console.log(error.message));
-    }, []);
-    
-    
+	}, []);
 
 	return (
 		<div id="form-container">
@@ -116,9 +113,14 @@ function FormPage() {
 					<option disabled defaultValue>
 						Pick your club
 					</option>
-					{clubsList && clubsList.map((club, index) => {
-						return <option key={index} value={club.id}>{club.club}</option>;
-					})}
+					{clubsList &&
+						clubsList.map((club, index) => {
+							return (
+								<option key={index} value={club.id}>
+									{club.club}
+								</option>
+							);
+						})}
 				</select>
 
 				<label htmlFor="email">Email address</label>

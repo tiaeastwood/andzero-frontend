@@ -1,3 +1,35 @@
+body {
+    background-color: black;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2813&q=80");;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    padding-top: 5%;
+    height: 100%;
+    min-height: 100vh;
+    color: white;
+}
+
+.btnContainer {
+    width: 100vw;
+}
+
+.btn {
+    margin-left: 0.3rem;
+    width: 49%;
+    font-size: 1.3rem;
+}
+
+label {
+    font-size: 1.5rem;
+}
+.label-text {
+    color: #fff;
+}
+
+.coffeePledgeLabel {
+    color: white;
+}
 .ANDRed {
     background-color: #D82036;
     border: #D82036;
@@ -15,6 +47,7 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 99;
 }
 
 button {
@@ -22,7 +55,7 @@ button {
 }
 
 form {
-    margin-top: 20%;
+    margin-top: 0%;
     display: flex;
     flex-direction: column;
 }
@@ -30,4 +63,43 @@ form {
 #form-container {
     display: flex;
     justify-content: center;
+}
+
+
+#pie-chart {
+    width: 30vw;
+    height: 100%;
+}
+
+
+.background-image {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),   url("https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2813&q=80");;
+        }
+
+
+@media(max-width: 500px) {
+    #pie-chart {
+            width: 80vw;
+        }
+}
+
+
+#dishwasherImg {
+    filter: invert(42%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(10000%) contrast(119%);
+    width: 25%;
+}
+
+
+#dishwasherX {
+    font-size: 3rem;
+}
+
+
+.statNumber {
+    font-size: 3rem;
+    
+}
+
+button:focus{
+    background-color: black;
 }
