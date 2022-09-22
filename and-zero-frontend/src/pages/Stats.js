@@ -32,7 +32,6 @@ function Stats() {
 	const [chartOptions, setChartOptions] = useState({});
 	const [cupsData, setCupsData] = useState({});
 	const [clubsList, setClubsList] = useState([]);
-	const [clubData, setClubData] = useState([]);
 
 	const fetchClubs = async () => {
 		const clubUrl = "http://localhost:3001/clubs";
@@ -45,22 +44,82 @@ function Stats() {
 		return data;
 	};
 
-	const getDataFromClubs = () => {
+	const getDataFromClubs = async () => {
 		const arr = [];
 		try {
 			for (const club of clubsList) {
-				fetch(`http://localhost:3001/cups/${club.id}`)
-					.then((response) => response.json())
-					.then((data) => {
-						const newItem = {
-							clubId: club.id,
-							clubName: club.club,
-							data: data.totalCupsSaved,
-						};
-						arr.push(newItem);
-					});
+				const response = await fetch(`http://localhost:3001/cups/${club.id}`);
+
+				if (!response.ok) {
+					throw new Error("Data could not be fetched");
+				}
+
+				const data = await response.json();
+
+				const newItem = {
+					clubId: club.id,
+					clubName: club.club,
+					data: data.totalCupsSaved,
+				};
+				arr.push(newItem);
 			}
-			setClubData(arr);
+			let names = [];
+			let stats = [];
+
+			for (let i = 0; i < arr.length; i++) {
+				names.push(arr[i].clubName);
+			}
+
+			for (let i = 0; i < arr.length; i++) {
+				stats.push(arr[i].data);
+			}
+
+			setChartData({
+				labels: names,
+				datasets: [
+					{
+						label: "Who is the judge?",
+						data: stats,
+						borderColor: [
+							"rgba(255, 99, 132, 1)",
+							"rgba(54, 162, 235, 1)",
+							"rgba(255, 206, 86, 1)",
+							"rgba(75, 192, 192, 1)",
+							"rgba(153, 102, 255, 1)",
+							"rgba(255, 159, 64, 1)",
+							"rgba(200, 200, 100, 1)",
+						],
+						backgroundColor: [
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(54, 162, 235, 0.2)",
+							"rgba(255, 206, 86, 0.2)",
+							"rgba(75, 192, 192, 0.2)",
+							"rgba(153, 102, 255, 0.2)",
+							"rgba(255, 159, 64, 0.2)",
+							"rgba(200, 200, 100, 1)",
+						],
+					},
+				],
+			});
+
+			setChartOptions({
+				responsive: true,
+				plugins: {
+					legend: {
+						labels: {
+							fontColor: "#fff",
+							font: {
+								size: 20,
+							},
+						},
+						position: "top",
+					},
+					title: {
+						display: true,
+						text: "Cups saved between clubs",
+					},
+				},
+			});
 		} catch (error) {
 			console.log(error);
 		}
@@ -90,62 +149,6 @@ function Stats() {
 			getDataFromClubs();
 		}
 	}, [clubsList]);
-
-	useEffect(() => {
-		console.log("clubData", clubData);
-		console.log("clubData", clubData.length);
-
-		setChartData({
-			labels: clubData.map((club) => club.clubName),
-			datasets: [
-				{
-					label: "Who is the judge?",
-					data: clubData.map((club) => club.data),
-					borderColor: [
-						"rgba(255, 99, 132, 1)",
-						"rgba(54, 162, 235, 1)",
-						"rgba(255, 206, 86, 1)",
-						"rgba(75, 192, 192, 1)",
-						"rgba(153, 102, 255, 1)",
-						"rgba(255, 159, 64, 1)",
-						"rgba(200, 200, 100, 1)",
-					],
-					backgroundColor: [
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(54, 162, 235, 0.2)",
-						"rgba(255, 206, 86, 0.2)",
-						"rgba(75, 192, 192, 0.2)",
-						"rgba(153, 102, 255, 0.2)",
-						"rgba(255, 159, 64, 0.2)",
-						"rgba(200, 200, 100, 1)",
-					],
-				},
-			],
-		});
-
-		setChartOptions({
-			responsive: true,
-			plugins: {
-				legend: {
-					labels: {
-						fontColor: "#fff",
-						font: {
-							size: 20,
-						},
-					},
-					position: "top",
-				},
-				title: {
-					display: true,
-					text: "Cups saved between clubs",
-				},
-			},
-		});
-	}, [clubData, clubsList]);
-
-	if (!clubData) {
-		return "Loading...";
-	}
 
 	return (
 		<div className="hero min-h-screen">
