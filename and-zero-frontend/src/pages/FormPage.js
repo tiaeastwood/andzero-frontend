@@ -7,7 +7,7 @@ function FormPage() {
 	const [pledgeDate, setPledgeDate] = useState();
 	const [email, setEmail] = useState();
 	const [clubId, setClubId] = useState();
-	const [cupData, setCupData] = useState();
+	const [clubsList, setClubsList] = useState([]);
 
 	const navigation = useNavigate();
 
@@ -36,30 +36,29 @@ function FormPage() {
 			.catch((error) => console.log("Form submit error", error));
 	};
 
-	const getCupsData = () => {
-		// const cupsUrl = "http://localhost:3001/cups";
-		// fetch(cupsUrl)
-		// 	.then((response) => response.json())
-		// 	.then((res) => console.log(res.data))
-		// 	.catch((error) => console.log("error getting data", error));
+	const fetchClubs = async () => {
+		const clubUrl = "http://localhost:3001/clubs";
 
-		fetch("http://localhost:3001/cups")
-			.then((response) => response.json())
-			.then((data) => {
-				//handle data
-				console.log(data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		const response = await fetch(clubUrl);
+
+		if (!response.ok) {
+			throw new Error("Data could not be fetched");
+		}
+
+		return await response.json();
 	};
 
 	useEffect(() => {
-		getCupsData();
+		fetchClubs()
+			.then((clubsList) => {
+				setClubsList(clubsList);
+				console.log(clubsList);
+			})
+			.catch((error) => console.log(error.message));
 	}, []);
 
 	return (
-		<div id="form-container ">
+		<div id="form-container">
 			<form className="p-12">
 				<label htmlFor="number">
 					On average, enter the number of coffees you have per day:
@@ -71,27 +70,30 @@ function FormPage() {
 					className="input input-bordered input-secondary w-full mb-6"
 					onChange={(e) => setCoffeeCups(e.target.value)}
 				/>
-				<label class="coffeePledgeLabel" htmlFor="radio">
+				<label htmlFor="radio">
 					Do you pledge to switch to a reusable coffee cup?
 				</label>
 				<div className="mb-5">
 					<label className="label cursor-pointer">
-						<div className="btnContainer flex justify-between">
-							<button
-								className="btn btn-primary ANDRed"
-								value={true}
-								onClick={(e) => setPledge(e.target.value)}
-							>
-								Yes
-							</button>
-							<button
-								className="btn btn-primary ANDRed"
-								value={false}
-								onClick={(e) => setPledge(e.target.value)}
-							>
-								No
-							</button>
-						</div>
+						<span className="label-text">Yes</span>
+						<input
+							value={true}
+							type="radio"
+							name="radio"
+							className="radio checked:bg-red-500"
+							onChange={(e) => setPledge(e.target.value)}
+						/>
+					</label>
+
+					<label className="label cursor-pointer">
+						<span className="label-text">No</span>
+						<input
+							value={false}
+							type="radio"
+							name="radio"
+							className="radio checked:bg-blue-500"
+							onChange={(e) => setPledge(e.target.value)}
+						/>
 					</label>
 				</div>
 
@@ -112,12 +114,14 @@ function FormPage() {
 					<option disabled defaultValue>
 						Pick your club
 					</option>
-					<option value="1">Wangari</option>
-					<option value="2">Woods</option>
-					<option value="3">Dekker</option>
-					<option value="4">Jemison</option>
-					<option value="5">Somerville</option>
-					<option value="6">Adams</option>
+					{clubsList &&
+						clubsList.map((club, index) => {
+							return (
+								<option key={index} value={club.id}>
+									{club.club}
+								</option>
+							);
+						})}
 				</select>
 
 				<label htmlFor="email">Email address</label>
