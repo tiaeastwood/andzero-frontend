@@ -160,6 +160,7 @@ select {
     background-color: rgba(255, 255, 255, 0.6);
     color: black;
     border-radius: 20px;
+    padding: 20px;
 }
 
 #featured-stat h1 {
