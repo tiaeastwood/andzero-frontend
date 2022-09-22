@@ -39,6 +39,7 @@ function FormPage() {
       })
       .catch((error) => {
         setShowMsg(true);
+
         console.log("Form submit error", error);
         setTimeout(() => {
           setShowMsg(false);
