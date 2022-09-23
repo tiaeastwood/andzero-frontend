@@ -29,7 +29,7 @@ function About() {
 							<p className="mb-4">
 							
 								If you’re ready to find out how big an impact you can have, hit
-								continue!
+								contribute!
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -38,17 +38,16 @@ function About() {
 									id="continueBtn"
 									className="btn btn-primary ANDRed mb-6"
 								>
-									Continue
+									Contribute
 								</button>
 							</Link>
 						</div>
 						<p className="mb-5">
-							Alternatively if you have already contributed you can log into
-							your area below to view your stats.
+							Alternatively if you have already contributed you can skip this step to view the stats.
 						</p>
 						<Link to="/Stats">
 							<button id="skipBtn" className="btn btn-primary ANDRed">
-								Log In
+								View Stats
 							</button>
 						</Link>
 					</div>

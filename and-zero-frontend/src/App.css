@@ -73,6 +73,10 @@ header {
     z-index: 99;
 }
 
+header img {
+    height: 70px;
+}
+
 button {
     width: 100%;
 }
@@ -86,6 +90,8 @@ form {
 #form-container {
     display: flex;
     justify-content: center;
+    width: 50%;
+    margin: 0 auto;
 }
 
 
@@ -95,15 +101,25 @@ form {
 }
 
 
-.background-image {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),   url("https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2813&q=80");;
-        }
-
 
 @media(max-width: 500px) {
     #pie-chart {
             width: 80vw;
         }
+
+   #form-container {
+    width: 100%;
+    margin-top: 2.5rem;
+   }
+
+   #form-container label {
+    font-size: 1.25rem;
+   }
+
+   #stats-page {
+    margin-top: 3rem;
+   }
+
 }
 
 
@@ -132,8 +148,8 @@ button:focus{
     width: 100%;
 }
 
-#submitBtn:hover {
-    background-color: black;
+button:hover {
+    background-color: black !important;
 }
 
 button:disabled {

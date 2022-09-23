@@ -162,7 +162,7 @@ function Stats() {
 		},
 		trees: {
 			introText:
-				"The Disposable Cups AND is no longer using will contribute to this many trees absoribing CO2 from elsewhere:",
+				"The Disposable Cups AND is no longer using will contribute to this many trees absorbing CO2 from elsewhere:",
 			figure: formattedTreesNeeded,
 			img: Forest,
 			src: "**based on figures from ecotree.green.",
@@ -202,7 +202,7 @@ function Stats() {
 	}, [clubsList]);
 
 	return (
-		<div className="hero min-h-screen">
+		<div id="stats-page" className="hero min-h-screen">
 			<div className="hero-overlay bg-opacity-60"></div>
 			<div className="hero-content text-center text-neutral-content flex flex-col">
 				<div className="max-w-md">

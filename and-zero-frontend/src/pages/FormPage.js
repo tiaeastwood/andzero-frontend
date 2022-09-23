@@ -86,17 +86,6 @@ function FormPage() {
 					onChange={(e) => setCoffeeCups(e.target.value)}
 				/>
 
-				{/* <div className="mb-5">
-					<div id="pledgeContainer" className="flex items-between">
-						<button className="rounded-lg ANDRed" value={true}>
-							YES
-						</button>
-
-						<button className="p-3 rounded-lg ANDRed ml-2" value={false}>
-							NO
-						</button>
-					</div>
-				</div> */}
 
 				<label htmlFor="number">
 					From what date do you pledge to switch to a reusable coffee cup?
@@ -135,6 +124,8 @@ function FormPage() {
 					className="input input-bordered input-secondary w-full mb-6"
 					onChange={(e) => setEmail(e.target.value)}
 				/>
+
+				<small className="mb-6">* This information will only be used to identify email addresses previously used.</small>
 
 				<button
 					type="submit"
